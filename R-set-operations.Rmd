@@ -1,0 +1,80 @@
+---
+title: "R-set-operations"
+author: "sayan"
+date: "7/5/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Set Graphics
+
+```{r 1, fig.width=6, fig.height=4, warning = FALSE}
+library(ggplot2)
+library(ggforce)
+library(ggrepel)
+options(ggrepel.max.overlaps = Inf)
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+
+ggplot() +
+  geom_rect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="white", color="black", size=1) +
+  geom_circle(aes(x0 = 8, y0 = 10, r=6), size=1) +
+  geom_circle(aes(x0 = 22, y0 = 10, r=6), size=1) +
+  geom_text(aes(x=1, y=19, label='Omega'), size=8, parse = TRUE) +
+  geom_text(aes(x=4, y=16, label='A'), size=8) +
+  geom_text(aes(x=18, y=16, label='B'), size=8) +
+  geom_text_repel(aes(x=8, y=10, label=a), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0) +
+  geom_text_repel(aes(x=22, y=10, label=b), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.4, 'lines')) +
+  theme_void()
+```
+```{r 2, fig.width=6, fig.height=4, warning = FALSE}
+library(ggplot2)
+library(ggforce)
+library(ggrepel)
+options(ggrepel.max.overlaps = Inf)
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+
+ggplot() + theme_void() +
+  geom_rect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="white", color="black", size=1) +
+  geom_text(aes(x=1, y=19, label='Omega'), size=8, parse = TRUE) +
+  geom_circle(aes(x0 = 11, y0 = 10, r=7), size=1) +
+  geom_text(aes(x=4, y=16, label='A'), size=8) +
+  geom_text_repel(aes(x=8, y=10, label=a), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.2, 'lines'), nudge_x=0, nudge_y=0) +
+  geom_circle(aes(x0 = 19, y0 = 10, r=7), size=1) +
+  geom_text(aes(x=26, y=16, label='B'), size=8) +
+  geom_text_repel(aes(x=22, y=10, label=b), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.2, 'lines'))
+```
+
+```{r 3, fig.width=6, fig.height=6, warning = FALSE}
+library(ggplot2)
+library(ggforce)
+library(ggrepel)
+options(ggrepel.max.overlaps = Inf)
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+
+ggplot() + theme_void() +
+  geom_rect(aes(xmin=0, xmax=30, ymin=0, ymax=30), fill="white", color="black", size=1) +
+  geom_text(aes(x=1, y=29, label='Omega'), size=8, parse = TRUE) +
+  geom_circle(aes(x0 = 8, y0 = 20, r=6), size=1) +
+  geom_text(aes(x=4, y=26, label='A'), size=8) +
+  geom_text_repel(aes(x=8, y=20, label=a), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines'), nudge_x=0, nudge_y=0) +
+  geom_circle(aes(x0 = 22, y0 = 20, r=6), size=1) +
+  geom_text(aes(x=18, y=26, label='B'), size=8) +
+  geom_text_repel(aes(x=22, y=20, label=b), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines')) +
+  geom_circle(aes(x0 = 15, y0 = 8, r=6), size=1) +
+  geom_text(aes(x=10, y=3, label='C'), size=8)
+```
