@@ -84,5 +84,8 @@ ggvenn(a, show_elements = TRUE, stroke_linetype = 1, stroke_size = 0.5,
 ```{r venn, message=FALSE, warning=FALSE}
 library(venn)
 
+venn("01 + 10 + 00")
+venn("10 + 01") + text(aes(x=50, y=50, label='A'), size=8)
 
+venn("001 + 011")
 ```
