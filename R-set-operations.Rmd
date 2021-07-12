@@ -11,32 +11,41 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Set Graphics
 
-```{r, fig.width=6, fig.height=4, warning = FALSE}
+```{r, fig.width=6, fig.height=4.2, warning = FALSE}
 library(ggplot2)
 library(ggforce)
 library(ggrepel)
+library(ggwordcloud)
 options(ggrepel.max.overlaps = Inf)
+source("geom-rrect.R", local=knitr::knit_global())
+
+#TODO: use ggwordcloud to fill circles with elements
 
 a <- list(1, 2, 3, 4, 5)
 b <- list(6, 7, 8, 9, 10)
 
 ggplot() +
-  geom_rect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="white", color="black", size=1) +
-  geom_circle(aes(x0 = 8, y0 = 10, r=6), size=1) +
-  geom_circle(aes(x0 = 22, y0 = 10, r=6), size=1) +
-  geom_text(aes(x=1, y=19, label='Omega'), size=8, parse = TRUE) +
+  geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="blue", color="NA", size=0, alpha=0.4,
+             radius=unit(12, "pt")) +
+  geom_circle(aes(x0 = 8, y0 = 10, r=6), fill="red", color="NA", alpha=0.4, size=0) +
+  geom_circle(aes(x0 = 22, y0 = 10, r=6), fill="green4", color="NA", alpha=0.4, size=1) +
+  geom_text(aes(x=1, y=21, label='Omega'), size=8, parse = TRUE) +
   geom_text(aes(x=4, y=16, label='A'), size=8) +
   geom_text(aes(x=18, y=16, label='B'), size=8) +
-  geom_text_repel(aes(x=8, y=10, label=a), size=6, segment.alpha=0, force=1,
-                  box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0) +
-  geom_text_repel(aes(x=22, y=10, label=b), size=6, segment.alpha=0, force=1,
-                  box.padding=unit(0.4, 'lines')) +
+  # geom_text_repel(aes(x=8, y=10, label=a), size=6, segment.alpha=0, force=1,
+  #                 box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0) +
+  geom_text_wordcloud(aes(x=8, y=10, label=a), size=6, rstep=.01, perc_step=.99, eccentricity=1, 
+                      grid_size = 50) +
+  geom_text_wordcloud(aes(x=22, y=10, label=b), size=6, rstep=.01, perc_step=.99, eccentricity=1, 
+                      grid_size = 50) +
   theme_void()
 ```
 ```{r, fig.width=6, fig.height=4, warning = FALSE}
 library(ggplot2)
 library(ggforce)
 library(ggrepel)
+library(grid)
+library(ggwordcloud)
 options(ggrepel.max.overlaps = Inf)
 
 # library(Cairo)
@@ -54,13 +63,14 @@ by <- h/2
 r <- w * (1/5)
 
 ggplot() +
-  geom_rect(aes(xmin=0, xmax=w, ymin=0, ymax=h), fill="white", color="black", size=1) +
+  roundrectGrob(x=0, width=w, y=0, height=h) +
   geom_text(aes(x=w * (1/30), y=h * (19/20), label='Omega'), size=8, parse = TRUE) +
   # A
   geom_text(aes(x=w*(2/15), y=ay+r, label='A'), size=8) +
   geom_circle(aes(x0 = ax, y0 = ay, r=r), size=1) +
-  geom_text_repel(aes(x=ax, y=ay, label=a), size=6, segment.alpha=0, force=1,
-                  box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0) +
+  # geom_text_repel(aes(x=ax, y=ay, label=a), size=6, segment.alpha=0, force=1,
+  #                 box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0) +
+  geom_text_wordcloud(aes(x=ax, y=ay, label=c("1", "2", "3", "4")), size=6, rstep=.01, perc_step=.99, eccentricity=1) +
   # B
   geom_text(aes(x=w*(3/5), y=by+r, label='B'), size=8) +
   geom_circle(aes(x0 = bx, y0 = by, r=r), size=1) +
