@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Set Graphics
 
 ```{r, fig.width=6, fig.height=4.2, warning = FALSE}
-
 library(ggplot2)
 library(tibble)
 library(ggforce)
